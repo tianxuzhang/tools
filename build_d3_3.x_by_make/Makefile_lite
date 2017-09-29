@@ -1,0 +1,29 @@
+LIBRARY_FILES = \
+    node_modules/d3/src/start.js \
+    node_modules/d3/src/compat/index.js \
+    node_modules/d3/src/arrays/index.js \
+    node_modules/d3/src/core/index.js \
+    node_modules/d3/src/event/index.js \
+    node_modules/d3/src/format/index.js \
+    node_modules/d3/src/interpolate/index.js \
+    node_modules/d3/src/layout/bundle.js \
+	node_modules/d3/src/layout/partition.js \
+	node_modules/d3/src/layout/pie.js \
+	node_modules/d3/src/layout/stack.js \
+	node_modules/d3/src/layout/histogram.js \
+	node_modules/d3/src/layout/hierarchy.js \
+	node_modules/d3/src/layout/pack.js \
+    node_modules/d3/src/math/index.js \
+    node_modules/d3/src/scale/index.js \
+    node_modules/d3/src/selection/index.js \
+    node_modules/d3/src/svg/index.js \
+    node_modules/d3/src/time/index.js \
+    node_modules/d3/src/transition/index.js \
+    node_modules/d3/src/xhr/index.js \
+    node_modules/d3/src/end.js
+
+d3lite: $(LIBRARY_FILES)
+	mkdir $@
+	node_modules/.bin/smash $(LIBRARY_FILES) | node_modules/.bin/uglifyjs - -c -m -o $@/$@.min.js 
+	node_modules/.bin/smash $(LIBRARY_FILES) > $@/$@.js
+	tar -czvf $@.tar.gz $@
